@@ -13,6 +13,10 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
 	boolean existsByNameAndEmail(String name, String email) throws CouponSystemException;
 
+	boolean existsByNameOrEmail(String name, String email) throws CouponSystemException;
+
+	boolean existsByEmail(String email) throws CouponSystemException;
+
 	@Query(value = "SELECT CASE WHEN (select exists(select * from coupons where title = ? and company_id = ? )) = 1 THEN 'True' else 'False' END ", nativeQuery = true)
 	boolean isCompanyExistsTitle(String title, int companyId) throws CouponSystemException;
 

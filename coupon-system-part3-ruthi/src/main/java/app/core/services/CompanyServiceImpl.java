@@ -49,6 +49,9 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
 		if (companyId != couponUpdate.getCompany().getId()) {
 			throw new CouponSystemException("company id cannot be updated");
 		}
+		if (couponRepository.existsByTitleAndCompanyId(coupon.getTitle(), companyId)) {
+			throw new CouponSystemException(coupon.getTitle() + " coupon is exist");
+		}
 		couponUpdate.setCategory(coupon.getCategory());
 		couponUpdate.setTitle(coupon.getTitle());
 		couponUpdate.setDescription(coupon.getDescription());

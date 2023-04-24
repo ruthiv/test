@@ -20,6 +20,8 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
 	List<Coupon> findByCompanyIdAndPriceLessThanEqual(int companyId, double price) throws CouponSystemException;
 
+	boolean existsByTitleAndCompanyId(String title, int companyId) throws CouponSystemException;
+
 	@Query(value = "SELECT CASE WHEN (select exists(select * from `coupons` where end_date > now() and amount > 0 and id = ?)) = 1 THEN 'True' else 'False' END", nativeQuery = true)
 	boolean isInventoryAndDateCoupon(int couponId) throws CouponSystemException;
 

@@ -42,6 +42,7 @@ public class Customer {
 	private String email;
 	@Column(nullable = false)
 	private String password;
+
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "coupons_vs_customers", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns = @JoinColumn(name = "coupon_id"))
