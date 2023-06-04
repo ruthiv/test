@@ -14,6 +14,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
 	boolean existsByEmail(String email) throws CouponSystemException;
 
+	boolean existsByEmailAndIdNot(String email, int id) throws CouponSystemException;
+
 	Customer findByEmailAndPassword(String email, String password) throws CouponSystemException;
 
 	@Query(value = "SELECT CASE WHEN (select exists(select * from `coupons_vs_customers` where customer_id= ? and coupon_id = ?)) = 1 THEN 'True' else 'False' END;", nativeQuery = true)

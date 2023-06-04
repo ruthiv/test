@@ -54,7 +54,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 		if (!company.getName().equals(companyFromDb.getName())) {
 			throw new CouponSystemException("name cannot be updated");
 		}
-		if (companyRepository.existsByEmail(company.getEmail())) {
+		if (companyRepository.existsByEmailAndIdNot(company.getEmail(), company.getId())) {
 			throw new CouponSystemException("Company " + company.getName() + " cannot be added - email exists");
 		}
 		companyFromDb.setEmail(company.getEmail());
@@ -95,7 +95,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 	public void updateCustomer(Customer customer, int adminId) throws CouponSystemException {
 		Customer customerFromDb = customerRepository.findById(customer.getId())
 				.orElseThrow(() -> new CouponSystemException("Customer " + customer.getId() + " cannot be updated"));
-		if (customerRepository.existsByEmail(customer.getEmail())) {
+		if (customerRepository.existsByEmailAndIdNot(customer.getEmail(), customer.getId())) {
 			throw new CouponSystemException("Customer " + customer.getFirstName() + " cannot be added - email exists");
 		}
 		customerFromDb.setFirstName(customer.getFirstName());
